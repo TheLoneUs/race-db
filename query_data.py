@@ -4,7 +4,7 @@ import sys
 
 def query_database(year, race_name):
     # Connect to the SQLite database
-    conn = sqlite3.connect('race_results.db')
+    conn = sqlite3.connect('racedata.sqlite')
     cursor = conn.cursor()
 
     # Execute a query to fetch data for the given year
