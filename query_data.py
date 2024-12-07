@@ -8,7 +8,7 @@ def query_database(year, race_name):
     cursor = conn.cursor()
 
     # Execute a query to fetch data for the given year
-    cursor.execute("SELECT * FROM results WHERE year = ?", (year,), " AND race_name = ?", (race_name,))
+    cursor.execute("SELECT * FROM results WHERE year = ? AND race_name = ?", (year,race_name,))
     rows = cursor.fetchall()
 
     # Convert results to JSON
