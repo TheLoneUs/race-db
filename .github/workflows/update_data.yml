@@ -1,0 +1,96 @@
+name: Generate JSON Data
+
+on:
+  push:
+    branches: 'main'
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+
+    - name: Install SQLite
+      run: sudo apt-get install sqlite3
+
+      # To get current list in sqlite DB:
+      # SELECT CONCAT("python query_data.py ",strftime('%Y',date)," '",race_name,"' > ",strftime('%Y',date),"_",LOWER(REPLACE(race_name,' ','_')),".json")
+      # FROM statistics
+      # GROUP BY date, race_name
+      # ORDER BY date;
+      # TODO: This query could be automated into the workflow.
+    - name: Run script
+      run: |
+        python query_data.py 1971 'Mystic Mountain Run' > 1971_mystic_mountain_run.json
+        python query_data.py 1972 'Mystic Mountain Run' > 1972_mystic_mountain_run.json
+        python query_data.py 1973 'Mystic Mountain Run' > 1973_mystic_mountain_run.json
+        python query_data.py 1974 'Mystic Mountain Run' > 1974_mystic_mountain_run.json
+        python query_data.py 1975 'Mystic Mountain Run' > 1975_mystic_mountain_run.json
+        python query_data.py 1976 'Mystic Mountain Run' > 1976_mystic_mountain_run.json
+        python query_data.py 1977 'Mystic Mountain Run' > 1977_mystic_mountain_run.json
+        python query_data.py 1978 'Mystic Mountain Run' > 1978_mystic_mountain_run.json
+        python query_data.py 1980 'Heart of the Hills Run' > 1980_heart_of_the_hills_run.json
+        python query_data.py 1981 'Heart of the Hills Run' > 1981_heart_of_the_hills_run.json
+        python query_data.py 1981 'Halloween 10k' > 1981_halloween_10k.json
+        python query_data.py 1982 'Heart of the Hills Run' > 1982_heart_of_the_hills_run.json
+        python query_data.py 1982 'Halloween 10k' > 1982_halloween_10k.json
+        python query_data.py 1983 'Heart of the Hills Run' > 1983_heart_of_the_hills_run.json
+        python query_data.py 1983 'Halloween 10k' > 1983_halloween_10k.json
+        python query_data.py 1984 'Heart of the Hills Run' > 1984_heart_of_the_hills_run.json
+        python query_data.py 1984 'Halloween 10k' > 1984_halloween_10k.json
+        python query_data.py 1985 'Heart of the Hills Run' > 1985_heart_of_the_hills_run.json
+        python query_data.py 1985 'Halloween 10k' > 1985_halloween_10k.json
+        python query_data.py 1986 'Heart of the Hills Run' > 1986_heart_of_the_hills_run.json
+        python query_data.py 1987 'Heart of the Hills Run' > 1987_heart_of_the_hills_run.json
+        python query_data.py 1988 'Heart of the Hills Run' > 1988_heart_of_the_hills_run.json
+        python query_data.py 1989 'Heart of the Hills Run' > 1989_heart_of_the_hills_run.json
+        python query_data.py 1990 'Heart of the Hills Run' > 1990_heart_of_the_hills_run.json
+        python query_data.py 1991 'Heart of the Hills Run' > 1991_heart_of_the_hills_run.json
+        python query_data.py 1992 'Heart of the Hills Run' > 1992_heart_of_the_hills_run.json
+        python query_data.py 1993 'Heart of the Hills Run' > 1993_heart_of_the_hills_run.json
+        python query_data.py 1994 'Heart of the Hills Run' > 1994_heart_of_the_hills_run.json
+        python query_data.py 1995 'Heart of the Hills Run' > 1995_heart_of_the_hills_run.json
+        python query_data.py 1996 'Heart of the Hills Run' > 1996_heart_of_the_hills_run.json
+        python query_data.py 1997 'Heart of the Hills Run' > 1997_heart_of_the_hills_run.json
+        python query_data.py 1998 'Heart of the Hills Run' > 1998_heart_of_the_hills_run.json
+        python query_data.py 1999 'Heart of the Hills Run' > 1999_heart_of_the_hills_run.json
+        python query_data.py 2000 'Heart of the Hills Run' > 2000_heart_of_the_hills_run.json
+        python query_data.py 2001 'Heart of the Hills Run' > 2001_heart_of_the_hills_run.json
+        python query_data.py 2002 'Heart of the Hills Run' > 2002_heart_of_the_hills_run.json
+        python query_data.py 2003 'Mystic Mountain Run' > 2003_mystic_mountain_run.json
+        python query_data.py 2003 'Heart of the Hills Run' > 2003_heart_of_the_hills_run.json
+        python query_data.py 2004 'Heart of the Hills Run' > 2004_heart_of_the_hills_run.json
+        python query_data.py 2005 'Heart of the Hills Run' > 2005_heart_of_the_hills_run.json
+        python query_data.py 2006 'Heart of the Hills Run' > 2006_heart_of_the_hills_run.json
+        python query_data.py 2007 'Heart of the Hills Run' > 2007_heart_of_the_hills_run.json
+        python query_data.py 2008 'Mystic Mountain Run' > 2008_mystic_mountain_run.json
+        python query_data.py 2008 'Heart of the Hills Run' > 2008_heart_of_the_hills_run.json
+        python query_data.py 2009 'Mystic Mountain Run' > 2009_mystic_mountain_run.json
+        python query_data.py 2009 'Heart of the Hills Run' > 2009_heart_of_the_hills_run.json
+        python query_data.py 2010 'Mystic Mountain Run' > 2010_mystic_mountain_run.json
+        python query_data.py 2010 'Heart of the Hills Run' > 2010_heart_of_the_hills_run.json
+        python query_data.py 2011 'Mystic Mountain Run' > 2011_mystic_mountain_run.json
+        python query_data.py 2011 'Heart of the Hills Run' > 2011_heart_of_the_hills_run.json
+        python query_data.py 2012 'Mystic Mountain Run' > 2012_mystic_mountain_run.json
+        python query_data.py 2012 'Heart of the Hills Run' > 2012_heart_of_the_hills_run.json
+        python query_data.py 2013 'Mystic Mountain Run' > 2013_mystic_mountain_run.json
+        python query_data.py 2013 'Heart of the Hills Run' > 2013_heart_of_the_hills_run.json
+        python query_data.py 2014 'Mystic Mountain Run' > 2014_mystic_mountain_run.json
+        # Add more years as needed
+
+    - name: Commit and Push JSON
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add *.json
+        git commit -m "Update JSON data"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
