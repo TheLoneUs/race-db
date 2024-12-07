@@ -90,7 +90,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add *.json
-        git commit -m "Update JSON data"
+        git commit -m "Workflow: Update JSON data."
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
