@@ -92,5 +92,6 @@ jobs:
         git add .
         git commit -m "Workflow: Update JSON data."
         git push
+      continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
