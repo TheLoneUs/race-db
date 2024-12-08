@@ -26,6 +26,8 @@ jobs:
         python race_results.py 'Heart of the Hills Run'
         python race_results.py 'Mystic Mountain Run'
         # Check for changes and handle accordingly
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add .
         git commit -m "Workflow: Update JSON data."
         if [[ -n "$(git diff --stat)" ]]; then
