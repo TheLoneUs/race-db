@@ -68,3 +68,5 @@ if __name__ == "__main__":
             race['date'][:4]+'.json',
             json.dumps(race_results)
         )
+
+    print('OK')
