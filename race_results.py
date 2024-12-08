@@ -43,7 +43,7 @@ def write_to_file(directory, filename, content):
 
     # Open the file in write mode ('w')
     with open(filepath, 'w') as file:
-        file.write(content)
+        print(content, file=file)
         file.close
 
 if __name__ == "__main__":
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     write_to_file(
         race_directory,
         'race.json',
-        json.dumps(race_information)+'\n'
+        json.dumps(race_information)
     )
 
     for race in race_information:
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         write_to_file(
             race_directory,
             race['date'][:4]+'.json',
-            json.dumps(race_results)+'\n'
+            json.dumps(race_results)
         )
 
     print('OK')
