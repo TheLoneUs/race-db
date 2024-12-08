@@ -30,7 +30,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git git diff --quiet || add . && git commit -m "Workflow: Update JSON data."
+        git diff --quiet || git add . && git commit -m "Workflow: Update JSON data."
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
