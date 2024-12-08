@@ -17,13 +17,13 @@ def get_race_year_info(race_name):
 
     return result
 
-def get_race_results(year, race_name):
+def get_race_results(race_id):
     # Connect to the SQLite database
     conn = sqlite3.connect('racedata.sqlite')
     cursor = conn.cursor()
 
-    # Execute a query to fetch data for the given year
-    cursor.execute("SELECT * FROM statistics WHERE strftime('%Y',date) = ? AND race_name = ?", (year,race_name,))
+    # Execute a query to fetch data for the given race
+    cursor.execute("SELECT * FROM statistics WHERE race_id = ?", (race_id,))
     rows = cursor.fetchall()
 
     # Convert results to JSON
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     )
 
     for race in race_information:
-        race_results = get_race_results(race['date'][:4],race_name)
+        race_results = get_race_results(race['id'])
         write_to_file(
             race_directory,
             race['date'][:4]+'.json',
