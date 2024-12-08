@@ -25,19 +25,22 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
+    - name: Clean workspace
+      run: |
+        git clean -fdx
+
     - name: Run script
       run: |
         python race_results.py 'Halloween 10k'
         python race_results.py 'Heart of the Hills Run'
         python race_results.py 'Mystic Mountain Run'
-        git add .
-        git commit -m "Workflow: Update JSON data."
-        if git diff --cached --quiet; then
-          echo "changes=false" >> $GITHUB_ENV
-        else
+        if [[ `git status --porcelain` ]]; then
+          git add .
+          git commit -m "Workflow: Update JSON data."
           echo "changes=true" >> $GITHUB_ENV
+        else
+          echo "changes=false" >> $GITHUB_ENV
         fi
-        
 
     - name: Push changes
       if: env.changes == 'true'
