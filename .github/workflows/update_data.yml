@@ -37,14 +37,10 @@ jobs:
         if [[ `git status --porcelain` ]]; then
           git add .
           git commit -m "Workflow: Update JSON data."
-          echo "changes=true" >> $GITHUB_ENV
+          git push
         else
-          echo "changes=false" >> $GITHUB_ENV
+          echo "No JSON Changes."
         fi
-
-    - name: Push changes
-      if: env.changes == 'true'
-      run: |
-        git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
