@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     write_to_file(
         race_directory,
-        '_race.json',
+        'race.json',
         json.dumps(race_information)
     )
 
