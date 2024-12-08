@@ -20,20 +20,25 @@ jobs:
     - name: Install SQLite
       run: sudo apt-get install sqlite3
 
+    - name: Setup Git user
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
     - name: Run script
       run: |
         python race_results.py 'Halloween 10k'
         python race_results.py 'Heart of the Hills Run'
         python race_results.py 'Mystic Mountain Run'
-        # Check for changes and handle accordingly
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
         git add .
         git commit -m "Workflow: Update JSON data."
-        if [[ -n "$(git diff --stat)" ]]; then
-            git push
+
+    - name: Push changes
+      run: |
+        if git diff --cached --quiet; then
+          echo "No changes to commit."
         else
-            echo "No changes to push."
+          git push
         fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
