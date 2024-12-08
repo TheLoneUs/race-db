@@ -27,11 +27,11 @@ jobs:
         python race_results.py 'Mystic Mountain Run'
         # Check for changes and handle accordingly
         git add .
+        git commit -m "Workflow: Update JSON data."
         if [[ -n "$(git diff --stat)" ]]; then
-            git commit -m "Workflow: Update JSON data."
             git push
         else
-            echo "No changes to commit."
+            echo "No changes to push."
         fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
