@@ -26,8 +26,8 @@ jobs:
         python race_results.py 'Heart of the Hills Run'
         python race_results.py 'Mystic Mountain Run'
         # Check for changes and handle accordingly
+        git add .
         if [[ -n "$(git diff --stat)" ]]; then
-            git add .
             git commit -m "Workflow: Update JSON data."
             git push
         else
