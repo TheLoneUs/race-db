@@ -17,6 +17,31 @@ def get_race_year_info(race_name):
 
     return result
 
+def get_race_attendance_records(race_name,sex):
+    # Connect to the SQLite database
+    conn = sqlite3.connect('racedata.sqlite')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT COUNT(*) AS attendance_count, s.participant_name
+        FROM races r
+        INNER JOIN statistics s ON r.id = s.race_id
+        WHERE r.race_name = ? AND s.sex = ?
+        GROUP BY participant_name, runner_id
+        ORDER BY attendance_count DESC;
+        """,
+        (race_name,sex,)
+    )
+
+    rows = cursor.fetchall()
+
+    # Convert results to JSON
+    result = [dict(zip([column[0] for column in cursor.description], row)) for row in rows]
+    conn.close()
+
+    return result
+
 def get_race_results(race_id):
     # Connect to the SQLite database
     conn = sqlite3.connect('racedata.sqlite')
@@ -59,6 +84,20 @@ if __name__ == "__main__":
         race_directory,
         'race.json',
         json.dumps(race_information)
+    )
+
+    race_attendance_f = get_race_attendance_records(race_name,'F')
+    write_to_file(
+        race_directory,
+        'attendance_f.json',
+        json.dumps(race_attendance_f)
+    )
+
+    race_attendance_m = get_race_attendance_records(race_name,'M')
+    write_to_file(
+        race_directory,
+        'attendance_m.json',
+        json.dumps(race_attendance_m)
     )
 
     for race in race_information:
