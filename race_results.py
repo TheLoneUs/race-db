@@ -53,7 +53,7 @@ if __name__ == "__main__":
     
     race_name = sys.argv[1]
     race_information = get_race_year_info(race_name)
-    race_directory = 'docs/'+race_name.lower().replace(' ','_')
+    race_directory = 'docs/'+race_name.lower().replace(' ','-')
 
     write_to_file(
         race_directory,

@@ -25,12 +25,10 @@ jobs:
         python race_results.py 'Halloween 10k'
         python race_results.py 'Heart of the Hills Run'
         python race_results.py 'Mystic Mountain Run'
-
-    - name: Commit and Push JSON if changes
-      run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git diff --quiet || git add . && git commit -m "Workflow: Update JSON data."
+        git add . 
+        git commit -m "Workflow: Update JSON data."
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
