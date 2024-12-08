@@ -8,7 +8,7 @@ def get_race_year_info(race_name):
     conn = sqlite3.connect('racedata.sqlite')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM races WHERE race_name = ?", (race_name,))
+    cursor.execute("SELECT * FROM races WHERE race_name = ? ORDER BY date DESC", (race_name,))
     rows = cursor.fetchall()
 
     # Convert results to JSON
