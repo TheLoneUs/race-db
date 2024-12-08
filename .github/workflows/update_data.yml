@@ -32,6 +32,7 @@ jobs:
         python race_results.py 'Mystic Mountain Run'
         git add .
         git commit -m "Workflow: Update JSON data."
+        git status
 
     - name: Push changes
       run: |
