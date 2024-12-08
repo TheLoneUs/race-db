@@ -24,14 +24,40 @@ def get_race_attendance_records(race_name,sex):
 
     cursor.execute(
         """
-        SELECT COUNT(*) AS attendance_count, s.participant_name
+        SELECT s.participant_name, COUNT(*) AS attendance_count
         FROM races r
         INNER JOIN statistics s ON r.id = s.race_id
         WHERE r.race_name = ? AND s.sex = ?
         GROUP BY participant_name, runner_id
-        ORDER BY attendance_count DESC;
+        ORDER BY attendance_count DESC
+        LIMIT 10;
         """,
         (race_name,sex,)
+    )
+
+    rows = cursor.fetchall()
+
+    # Convert results to JSON
+    result = [dict(zip([column[0] for column in cursor.description], row)) for row in rows]
+    conn.close()
+
+    return result
+
+def get_race_time_records(race_name,sex,division):
+    # Connect to the SQLite database
+    conn = sqlite3.connect('racedata.sqlite')
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+        SELECT s.participant_name, s.time
+        FROM races r
+        INNER JOIN statistics s ON r.id = s.race_id
+        WHERE r.race_name = ? AND s.sex = ? AND division = ?
+        ORDER BY s.time DESC
+        LIMIT 10;
+        """,
+        (race_name,sex,division,)
     )
 
     rows = cursor.fetchall()
@@ -86,18 +112,28 @@ if __name__ == "__main__":
         json.dumps(race_information)
     )
 
-    race_attendance_f = get_race_attendance_records(race_name,'F')
     write_to_file(
         race_directory,
         'attendance_f.json',
-        json.dumps(race_attendance_f)
+        json.dumps(get_race_attendance_records(race_name,'F'))
     )
 
-    race_attendance_m = get_race_attendance_records(race_name,'M')
     write_to_file(
         race_directory,
         'attendance_m.json',
-        json.dumps(race_attendance_m)
+        json.dumps(get_race_attendance_records(race_name,'M'))
+    )
+
+    write_to_file(
+        race_directory,
+        'run_records_f.json',
+        json.dumps(get_race_time_records(race_name,'F','Run'))
+    )
+
+    write_to_file(
+        race_directory,
+        'run_records_m.json',
+        json.dumps(get_race_time_records(race_name,'M','Run'))
     )
 
     for race in race_information:
