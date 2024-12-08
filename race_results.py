@@ -54,7 +54,7 @@ def get_race_time_records(race_name,sex,division):
         FROM races r
         INNER JOIN statistics s ON r.id = s.race_id
         WHERE r.race_name = ? AND s.sex = ? AND division = ?
-        ORDER BY s.time DESC
+        ORDER BY s.time ASC
         LIMIT 10;
         """,
         (race_name,sex,division,)
@@ -126,13 +126,13 @@ if __name__ == "__main__":
 
     write_to_file(
         race_directory,
-        'run_records_f.json',
+        'records_run_f.json',
         json.dumps(get_race_time_records(race_name,'F','Run'))
     )
 
     write_to_file(
         race_directory,
-        'run_records_m.json',
+        'records_run_m.json',
         json.dumps(get_race_time_records(race_name,'M','Run'))
     )
 
