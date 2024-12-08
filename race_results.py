@@ -58,7 +58,7 @@ if __name__ == "__main__":
     write_to_file(
         race_directory,
         'race.json',
-        json.dumps(race_information)
+        json.dumps(race_information)+'\n'
     )
 
     for race in race_information:
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         write_to_file(
             race_directory,
             race['date'][:4]+'.json',
-            json.dumps(race_results)
+            json.dumps(race_results)+'\n'
         )
 
     print('OK')
